@@ -362,6 +362,7 @@
  @param image The image that will be used to crop.
  */
 - (nonnull instancetype)initWithImage:(nonnull UIImage *)image NS_SWIFT_NAME(init(image:));
+- (nonnull instancetype)initWithImage:(nonnull UIImage *)image andResizeBlocked:(BOOL)isResizeBlocked;
 
 /** 
  Creates a new instance of a crop view controller with the supplied image and cropping style

@@ -67,6 +67,8 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
 /* Flag to perform initial setup on the first run */
 @property (nonatomic, assign) BOOL firstTime;
 
+@property (nonatomic, assign) BOOL isResizeBlocked;
+
 @end
 
 @implementation TOCropViewController
@@ -103,9 +105,13 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     return self;
 }
 
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image andResizeBlocked:(BOOL)isResizeBlocked
 {
-    return [self initWithCroppingStyle:TOCropViewCroppingStyleDefault image:image];
+    self = [self initWithCroppingStyle:TOCropViewCroppingStyleDefault image:image];
+    if (self) {
+        self.isResizeBlocked = isResizeBlocked;
+    }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -207,6 +213,8 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     if (self.navigationController == nil) {
         [self.cropView setBackgroundImageViewHidden:NO animated:animated];
     }
+
+    self.cropView.cropBoxResizeEnabled = !self.isResizeBlocked;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
